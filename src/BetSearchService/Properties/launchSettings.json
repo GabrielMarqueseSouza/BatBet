@@ -1,13 +1,13 @@
-{
+﻿{
   "profiles": {
-    "httpBatBet": {
+    "httpSearchService": {
       "commandName": "Project",
       "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:7001"
+      "applicationUrl": "http://localhost:7002"
     },
     "https": {
       "commandName": "Project",
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:8590"
+      "applicationUrl": "https://localhost:8591"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json"

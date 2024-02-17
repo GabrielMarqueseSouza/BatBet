@@ -1,0 +1,6 @@
+@BetSearchService_HostAddress = http://localhost:5206
+
+GET {{BetSearchService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

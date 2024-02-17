@@ -4,12 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BatBetService.Data
 {
-    public class BatBetDbContext: DbContext
+    public class BatBetDbContext(DbContextOptions options) : DbContext(options)
     {
-        public BatBetDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntitiesMapping).Assembly);

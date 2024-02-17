@@ -1,9 +1,9 @@
-﻿using BatBetService.Entities;
+﻿using MongoDB.Entities;
 using System;
 
-namespace BatBetService.DTOs.Response
+namespace BetSearchService.Models
 {
-    public class BetDto
+    public class Bets: Entity
     {
         public double Amount { get; set; }
         public Status Status { get; set; }
