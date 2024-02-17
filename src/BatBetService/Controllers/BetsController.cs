@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BatBetService.Data;
 using BatBetService.DTOs.Request;
 using BatBetService.DTOs.Response;
@@ -8,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace BatBetService.Controllers
@@ -26,16 +26,24 @@ namespace BatBetService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBets()
+        public async Task<IActionResult> GetBets(string date)
         {
-            var bets = await _dbContext.Bets
-                            .Include(x => x.User)
-                            .Include(x => x.Game)
-                            .OrderBy(x => x.Id)
-                            .ToListAsync();
+            IQueryable<Bet> query = _dbContext.Bets
+                        .OrderBy(x => x.CreatedAt)
+                        .AsQueryable();
 
-            return Ok(_mapper.Map<IList<BetDto>>(bets));
-        }
+            if (!string.IsNullOrEmpty(date))
+            {
+                query = query
+                        .Where(x => x.CreatedAt
+                        .CompareTo(DateTime.Parse(date)
+                        .ToUniversalTime()) > 0);
+            }
+
+            List<BetDto> response = await query.ProjectTo<BetDto>(_mapper.ConfigurationProvider).ToListAsync();
+
+            return Ok(response);
+        }    
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBetById(int id)

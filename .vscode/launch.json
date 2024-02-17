@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "name": "C#: BetSearchService [Default Configuration]",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}\\src\\BetSearchService\\BetSearchService.csproj"
+    }
+  ]
+}
