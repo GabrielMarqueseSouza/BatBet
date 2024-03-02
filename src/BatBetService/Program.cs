@@ -1,4 +1,7 @@
 using BatBetService.Data;
+using BatBetService.Repositories.DependencyInjection;
+using BatBetService.Services.DependencyInjection;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +18,20 @@ builder.Services.AddDbContext<BatBetDbContext>(opt =>
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddServicesDependecyInjection();
+builder.Services.AddRepositoriesDependecyInjection();
+
 
 WebApplication app = builder.Build();
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BatBetService.Data
 {
-    public class BatBetDbContext(DbContextOptions options) : DbContext(options)
+    public sealed class BatBetDbContext(DbContextOptions options) : DbContext(options)
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
