@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using BatBetService.DTOs.Request;
 using BatBetService.DTOs.Response;
 using BatBetService.Entities;
 using BatBetService.Interfaces.Repositories;
 using BatBetService.Interfaces.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BatBetService.Services
@@ -21,17 +18,9 @@ namespace BatBetService.Services
 
         public async Task<IList<BetDto>> GetBets(string date)
         {
-            IQueryable<Bet> query = await _betsRepository.GetBets();
+            IList<Bet> query = await _betsRepository.GetBets(date);
 
-            if (!string.IsNullOrEmpty(date))
-            {
-                query = query
-                        .Where(x => x.CreatedAt
-                        .CompareTo(DateTime.Parse(date)
-                        .ToUniversalTime()) > 0);
-            }
-
-            List<BetDto> response = await query.ProjectTo<BetDto>(_mapper.ConfigurationProvider).ToListAsync();
+            IList<BetDto> response = _mapper.Map<IList<BetDto>>(query);
 
             return response;
         }
@@ -46,9 +35,6 @@ namespace BatBetService.Services
             User user = await _userRepository.GetById(userId) ?? throw new Exception("User not found.");
 
             await CheckValidUserBalance(user, bet.Amount);
-
-            //create a logic to subtract the bet amount from the user balance
-            //and, if the balance is lower than the bet amount, block the user from finishing the bet
 
             Bet placedBet = _mapper.Map<Bet>(bet);
 
@@ -83,12 +69,12 @@ namespace BatBetService.Services
 
         private async Task CheckValidUserBalance(User user, double betAmount)
         {
-            if (user.Balance < betAmount)
+            if (user.Balance < betAmount || user.Balance == 0)
             {
                 throw new Exception("Insufficient balance!");
             }
 
-            user.Balance = -betAmount;
+            user.Balance -= betAmount;
 
             await _userRepository.CommitChanges();
         }

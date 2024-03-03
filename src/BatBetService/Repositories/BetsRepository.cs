@@ -16,12 +16,19 @@ namespace BatBetService.Repositories
     {
         protected readonly IMapper _mapper = mapper;
 
-        public async Task<IQueryable<Bet>> GetBets()
+        public async Task<IList<Bet>> GetBets(string date)
         {
-            List<Bet> query = await _context.Bets
-                         .OrderBy(x => x.CreatedAt).ToListAsync();
+            IQueryable<Bet> query = _context.Bets;
 
-            return query.AsQueryable();
+            if (!string.IsNullOrEmpty(date))
+            {
+                DateTime parsedDate = DateTime.Parse(date).ToUniversalTime();
+                query = query.Where(x => x.CreatedAt.CompareTo(parsedDate) > 0);
+            }
+
+            return await query
+                .OrderBy(x => x.CreatedAt)
+                .ToListAsync();
         }
 
         public async Task<BetDto> GetBetById(int id)
