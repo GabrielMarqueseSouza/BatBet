@@ -1,4 +1,3 @@
-using BetSearchService.Data;
 using BetSearchService.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;

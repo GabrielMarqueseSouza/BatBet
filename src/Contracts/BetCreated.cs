@@ -1,4 +1,4 @@
-﻿using BatBetService.Entities;
+﻿using BatBetDomain.Entities;
 
 namespace Contracts;
 

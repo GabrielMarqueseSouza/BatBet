@@ -1,10 +1,8 @@
-using BatBetService.Data;
-using BatBetService.Repositories.DependencyInjection;
-using BatBetService.Services.DependencyInjection;
+using BatBetDomain.Services.DependencyInjection;
+using BatBetInfrastructure.Repositories.DependencyInjection;
+using BatBetService.Configurations;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -12,10 +10,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<BatBetDbContext>(opt =>
-{
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddContextConfiguration(builder);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMassTransit(x =>

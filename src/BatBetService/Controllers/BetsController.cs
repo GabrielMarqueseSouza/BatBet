@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using BatBetService.DTOs.Request;
-using BatBetService.DTOs.Response;
-using BatBetService.Interfaces.Services;
+using BatBetDomain.DTOs.Request;
+using BatBetDomain.DTOs.Response;
+using BatBetDomain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace BatBetService.Controllers
+namespace BatBetDomain.Controllers
 {
     [ApiController]
     [Route("bets")]
