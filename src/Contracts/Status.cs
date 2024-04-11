@@ -1,4 +1,4 @@
-﻿namespace BatBetDomain.Entities
+﻿namespace Contracts
 {
     public enum Status
     {

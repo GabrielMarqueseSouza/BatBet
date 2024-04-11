@@ -18,7 +18,9 @@ namespace BatBetInfrastructure.Repositories
 
         public async Task<IList<Bet>> GetBets(string date)
         {
-            IQueryable<Bet> query = _context.Bets;
+            IQueryable<Bet> query = _context.Bets
+                                .Include(x => x.User)
+                                .Include(x => x.Game);
 
             if (!string.IsNullOrEmpty(date))
             {
@@ -41,7 +43,7 @@ namespace BatBetInfrastructure.Repositories
             return bet == null ? throw new Exception("Bet not found.") : _mapper.Map<BetDto>(bet);
         }
 
-        public async Task<bool> UpdateBet(int id)
+        public async Task<int> UpdateBet(int id)
         {
             Bet bet = await _context.Bets
                 .Where(x => x.Status == Status.Active)
@@ -50,9 +52,7 @@ namespace BatBetInfrastructure.Repositories
             bet.UpdatedAt = DateTime.UtcNow;
             bet.Status = Status.Finished;
 
-            bool result = await CommitChanges() > 0;
-
-            return result;
+            return bet.Id;
         }
     }
 }

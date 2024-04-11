@@ -5,10 +5,12 @@ namespace BatBetInfrastructure.Repositories.DependencyInjection
 {
     public static class DependencyInjection
     {
-        public static void AddRepositoriesDependecyInjection(this IServiceCollection services)
+        public static void AddRepositoriesDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBetsRepository, BetsRepository>();
+            services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IAvailableBetsRepository, AvailableBetsRepository>();
         }
     }
 }

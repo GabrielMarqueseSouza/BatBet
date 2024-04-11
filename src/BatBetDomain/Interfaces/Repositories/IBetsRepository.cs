@@ -10,6 +10,6 @@ namespace BatBetDomain.Interfaces.Repositories
     {
         Task<IList<Bet>> GetBets(string date);
         Task<BetDto> GetBetById(int id);
-        Task<bool> UpdateBet(int id);
+        Task<int> UpdateBet(int id);
     }
 }

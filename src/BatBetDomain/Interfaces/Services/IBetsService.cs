@@ -10,7 +10,7 @@ namespace BatBetDomain.Interfaces.Services
         Task<IList<BetDto>> GetBets(string date);
         Task<BetDto> GetBetById(int id);
         Task<BetDto> CreateBet(PlaceBetDto bet, int userId);
-        Task<bool> UpdateBet(int id);
+        Task<int> UpdateBet(int id);
         Task<bool> DeleteBet(int id);
     }
 }

@@ -16,5 +16,7 @@ namespace BatBetDomain.Entities
         public Game Game { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public int AvailableBetId { get; set; }
+        public AvailableBet AvailableBet { get; set; }
     }
 }

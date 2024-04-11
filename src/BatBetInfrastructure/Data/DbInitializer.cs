@@ -56,14 +56,40 @@ namespace BatBetInfrastructure.Data
                 Address = "Rua Sim",
                 State = "MG",
                 Complement = "10",
-                Age = 20,
+                Age = 21,
                 DocumentNumber = "Abcd1234",
-                Balance = 700.50,
+                Balance = 2000000,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 IsBlocked = false,
                 BlockReason = null,
             };
+
+            List<AvailableBet> availableBets =
+            [
+                new AvailableBet
+                {
+                    Id = 1,
+                    Name = "Random bet name",
+                    MinValue = 1,
+                    MaxValue = 1000000,
+                    CreatedAt = DateTime.UtcNow,
+                    LimitDate = DateTime.UtcNow.AddDays(200),
+                    GameId = 1,
+                    Game = pokerGame
+                },
+                new AvailableBet
+                {
+                    Id = 2,
+                    Name = "Random bet name number two",
+                    MinValue = 50,
+                    MaxValue = 90,
+                    CreatedAt = DateTime.UtcNow,
+                    LimitDate = DateTime.UtcNow.AddDays(200),
+                    GameId = 2,
+                    Game = lolGame,
+                }
+            ];
 
             List<Bet> bets =
             [
@@ -75,11 +101,12 @@ namespace BatBetInfrastructure.Data
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(10),
+                    DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
                     UserId = 1,
-                    User = user
+                    User = user,
+                    AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
                 {
@@ -89,11 +116,12 @@ namespace BatBetInfrastructure.Data
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(15),
+                    DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
                     UserId = 1,
-                    User = user
+                    User = user,
+                    AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
                 {
@@ -103,11 +131,12 @@ namespace BatBetInfrastructure.Data
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(20),
+                    DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 2,
                     Game = lolGame,
                     UserId = 1,
-                    User = user
+                    User = user,
+                    AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
                 {
@@ -121,7 +150,8 @@ namespace BatBetInfrastructure.Data
                     GameId = 2,
                     Game = lolGame,
                     UserId = 1,
-                    User = user
+                    User = user,
+                    AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
                 {
@@ -131,37 +161,12 @@ namespace BatBetInfrastructure.Data
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(30),
+                    DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
                     UserId = 1,
-                    User = user
-                }
-            ];
-
-            List<AvailableBet> availableBets =
-            [
-                new AvailableBet
-                {
-                    Id = 1,
-                    Name = "Random bet name",
-                    MinValue = 1,
-                    MaxValue = 100,
-                    CreatedAt = DateTime.UtcNow,
-                    LimitDate = DateTime.UtcNow.AddDays(60),
-                    GameId = 1,
-                    Game = pokerGame
-                },
-                new AvailableBet
-                {
-                    Id = 2,
-                    Name = "Random bet name number two",
-                    MinValue = 50,
-                    MaxValue = 90,
-                    CreatedAt = DateTime.UtcNow,
-                    LimitDate = DateTime.UtcNow.AddDays(60),
-                    GameId = 2,
-                    Game = lolGame,
+                    User = user,
+                    AvailableBetId = availableBets[0].Id,
                 }
             ];
 

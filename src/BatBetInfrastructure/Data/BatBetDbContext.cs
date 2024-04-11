@@ -1,5 +1,6 @@
 ﻿using BatBetDomain.Entities;
 using BatBetInfrastructure.Data.Mappings;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace BatBetInfrastructure.Data
@@ -8,6 +9,12 @@ namespace BatBetInfrastructure.Data
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntitiesMapping).Assembly);
         }
 

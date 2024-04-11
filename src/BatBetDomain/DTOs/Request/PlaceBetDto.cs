@@ -8,12 +8,13 @@ namespace BatBetDomain.DTOs.Request
     {
         [Required]
         public double Amount { get; set; }
+        public string GameName { get; set; }
+        public int AvailableBetId { get; set; }
 
         [Required]
-        public string GameName { get; set; }
         public int GameId { get; set; }
         public Status Status { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime DueDate { get; set; } = DateTime.UtcNow.AddDays(60);
+        public DateTime CreatedAt { get; set; }
+        public DateTime DueDate { get; set; }
     }
 }

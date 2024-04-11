@@ -1,4 +1,4 @@
-﻿namespace BetSearchService.Models
+﻿namespace BetSearchServiceAPI.Models
 {
     public enum Status
     {

@@ -5,7 +5,7 @@ namespace BatBetDomain.DTOs.Response
 {
     public class BetDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public double Amount { get; set; }
         public Status Status { get; set; }
         public double PlatformFee { get; set; }

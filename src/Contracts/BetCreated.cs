@@ -1,10 +1,9 @@
-﻿using BatBetDomain.Entities;
+﻿using System;
 
 namespace Contracts;
 
 public class BetCreated
 {
-    public int BetId { get; set; }
     public double Amount { get; set; }
     public Status Status { get; set; }
     public double PlatformFee { get; set; }

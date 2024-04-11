@@ -5,7 +5,7 @@ namespace BatBetDomain.Services.DependencyInjection
 {
     public static class DependencyInjection
     {
-        public static void AddServicesDependecyInjection(this IServiceCollection services)
+        public static void AddServicesDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IBetsService, BetsService>();
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BatBetDomain.Entities
 {
@@ -13,5 +14,6 @@ namespace BatBetDomain.Entities
 
         public int GameId { get; set; }
         public Game Game { get; set; }
+        public virtual ICollection<Bet> Bets { get; set; }
     }
 }

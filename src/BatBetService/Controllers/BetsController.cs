@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BatBetDomain.DTOs.Request;
+﻿using BatBetDomain.DTOs.Request;
 using BatBetDomain.DTOs.Response;
 using BatBetDomain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +8,8 @@ namespace BatBetDomain.Controllers
 {
     [ApiController]
     [Route("bets")]
-    public class BetsController(IMapper mapper, IBetsService betsService) : ControllerBase
+    public class BetsController(IBetsService betsService) : ControllerBase
     {
-        private readonly IMapper _mapper = mapper;
         private readonly IBetsService _betsService = betsService;
 
         [HttpGet]
@@ -27,21 +25,20 @@ namespace BatBetDomain.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBet(PlaceBetDto bet, int userId)
+        public async Task<IActionResult> CreateBet(PlaceBetDto betDto, int userId)
         {
-            BetDto placedBet = await _betsService.CreateBet(bet, userId);
+            BetDto placedBet = await _betsService.CreateBet(betDto, userId);
 
             return CreatedAtAction(nameof(GetBetById),
-                new { placedBet.Id },
-                _mapper.Map<PlaceBetDto>(bet));
+                new { placedBet.Id }, placedBet);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBet(int id)
         {
-            bool result = await _betsService.UpdateBet(id);
+            int result = await _betsService.UpdateBet(id);
 
-            if (result) return NoContent();
+            if (result != 0) return Ok($"Updated bet id: {result}");
 
             return BadRequest("Problem saving changes");
         }

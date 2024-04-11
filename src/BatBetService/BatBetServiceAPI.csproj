@@ -24,7 +24,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BatBetInfrastructure\BatBetInfrastructure.csproj" />
-		<ProjectReference Include="..\Contracts\Contracts.csproj" />
 	</ItemGroup>
 
 </Project>
