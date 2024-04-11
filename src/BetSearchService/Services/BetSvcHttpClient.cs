@@ -1,4 +1,4 @@
-﻿using BetSearchService.Models;
+﻿using BetSearchServiceAPI.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Entities;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BetSearchService.Services
+namespace BetSearchServiceAPI.Services
 {
     public class BetSvcHttpClient(HttpClient httpClient, IConfiguration configuration)
     {
@@ -21,11 +21,18 @@ namespace BetSearchService.Services
                 .ExecuteFirstAsync();
 
             string requestUri = lastCreated is not null ?
-                _configuration["BatBetServiceUrl"] + "/bets?date=" + lastCreated :
+                _configuration["BatBetServiceUrl"] + "/bets?date=" + lastCreated[..23] :
                 _configuration["BatBetServiceUrl"] + "/bets";
 
             List<Bets> response = await _httpClient
             .GetFromJsonAsync<List<Bets>>(requestUri);
+
+            //how to generate ObjectId instead of using int
+            // foreach (var item in response)
+            // {
+            //     item.ID = ObjectId.GenerateNewId().ToString();
+            //     await Console.Out.WriteLineAsync($"Bets IDs: {item.ID}");
+            // }
 
             return response;
         }

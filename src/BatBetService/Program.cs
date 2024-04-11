@@ -1,7 +1,9 @@
-using BatBetService.Data;
+using BatBetDomain.Services.DependencyInjection;
+using BatBetInfrastructure.Data;
+using BatBetInfrastructure.Repositories.DependencyInjection;
+using BatBetService.Configurations;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -9,15 +11,36 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<BatBetDbContext>(opt =>
-{
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddContextConfiguration(builder);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMassTransit(x =>
+{
+    x.AddEntityFrameworkOutbox<BatBetDbContext>(o =>
+    {
+        o.QueryDelay = TimeSpan.FromSeconds(10);
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddServicesDependencyInjection();
+builder.Services.AddRepositoriesDependencyInjection();
+
 
 WebApplication app = builder.Build();
 
@@ -28,6 +51,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//DbInitializer.InitDb(app);
+// DbInitializer.InitDb(app);
 
 app.Run();

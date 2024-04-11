@@ -1,13 +1,14 @@
-﻿using BetSearchService.Models;
-using BetSearchService.Services;
+﻿using BetSearchServiceAPI.Services;
+using BetSearchServiceAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using MongoDB.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace BetSearchService.Data
+namespace BetSearchServiceAPI.Data
 {
     public class DbInitializer
     {
@@ -17,18 +18,18 @@ namespace BetSearchService.Data
                 MongoClientSettings.FromConnectionString(
                     app.Configuration.GetConnectionString("MongoDbConnection")));
 
-           await DB.Index<Bets>()
-                .Key(x => x.ID, KeyType.Text)
-                .Key(x => x.CreatedAt, KeyType.Text)
-                .Key(x => x.GameName, KeyType.Text)
-                .Key(x => x.UserName, KeyType.Text)
-                .CreateAsync();
+            await DB.Index<Bets>()
+                 .Key(x => x.ID, KeyType.Text)
+                 .Key(x => x.CreatedAt, KeyType.Text)
+                 .Key(x => x.GameName, KeyType.Text)
+                 .Key(x => x.UserName, KeyType.Text)
+                 .CreateAsync();
 
-            using var scope = app.Services.CreateScope();
+            using IServiceScope scope = app.Services.CreateScope();
 
-            var httpClient = scope.ServiceProvider.GetRequiredService<BetSvcHttpClient>();
+            BetSvcHttpClient httpClient = scope.ServiceProvider.GetRequiredService<BetSvcHttpClient>();
 
-            var items = await httpClient.GetBetsForSearchDb();
+            List<Bets> items = await httpClient.GetBetsForSearchDb();
 
             if (items.Count > 0) { await DB.SaveAsync(items); }
         }

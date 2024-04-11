@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using BetSearchService.Models;
+using BetSearchServiceAPI.Models;
 using MongoDB.Entities;
 using System;
 using System.Linq;
-using BetSearchService.RequestHelpers;
+using BetSearchServiceAPI.RequestHelpers;
 
-namespace BetSearchService.Controllers
+namespace BetSearchServiceAPI.Controllers
 {
     [ApiController]
     [Route("search")]
@@ -21,7 +21,7 @@ namespace BetSearchService.Controllers
         {
             var bets = DB.PagedSearch<Bets>().Sort(x => x.Descending(x => x.CreatedAt));
 
-            if(!string.IsNullOrEmpty(searchParams.SearchTerm))
+            if (!string.IsNullOrEmpty(searchParams.SearchTerm))
             {
                 bets.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
             }
@@ -39,7 +39,7 @@ namespace BetSearchService.Controllers
                 "Finished" => bets.Match(x => x.Status == Status.Finished),
                 "Suspended" => bets.Match(x => x.Status == Status.Suspended),
                 "Canceled" => bets.Match(x => x.Status == Status.Canceled),
-                _ =>  bets
+                _ => bets
             };
 
             if (!string.IsNullOrEmpty(searchParams.UserName))

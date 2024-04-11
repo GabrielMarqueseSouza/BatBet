@@ -1,4 +1,4 @@
-﻿namespace BetSearchService.RequestHelpers
+﻿namespace BetSearchServiceAPI.RequestHelpers
 {
     public class SearchParams
     {

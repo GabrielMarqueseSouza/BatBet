@@ -1,4 +1,4 @@
-﻿namespace BetSearchServiceAPI.Models
+﻿namespace Contracts
 {
     public enum Status
     {

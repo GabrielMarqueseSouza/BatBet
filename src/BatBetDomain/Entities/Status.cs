@@ -1,4 +1,4 @@
-﻿namespace BetSearchServiceAPI.Models
+﻿namespace BatBetDomain.Entities
 {
     public enum Status
     {

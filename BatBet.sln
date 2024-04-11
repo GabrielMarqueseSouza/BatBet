@@ -5,11 +5,17 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{969898D1-D366-4B99-BED5-44197AF31608}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatBetService", "src\BatBetService\BatBetService.csproj", "{A9DC78B3-892C-4411-97C7-366460B01535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatBetServiceAPI", "src\BatBetService\BatBetServiceAPI.csproj", "{A9DC78B3-892C-4411-97C7-366460B01535}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{727BC969-84ED-4982-92A0-80B46FEA71B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetSearchService", "src\BetSearchService\BetSearchService.csproj", "{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetSearchServiceAPI", "src\BetSearchService\BetSearchServiceAPI.csproj", "{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "src\Contracts\Contracts.csproj", "{CE026F8F-5F9E-400F-8EC6-35F572021D85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatBetDomain", "src\BatBetDomain\BatBetDomain.csproj", "{FA41E3EA-B856-48B9-BBAB-B03A3873FA30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatBetInfrastructure", "src\BatBetInfrastructure\BatBetInfrastructure.csproj", "{AFFC7DD7-CA7F-43CE-9861-FC97E096319E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +35,18 @@ Global
 		{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE026F8F-5F9E-400F-8EC6-35F572021D85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE026F8F-5F9E-400F-8EC6-35F572021D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE026F8F-5F9E-400F-8EC6-35F572021D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE026F8F-5F9E-400F-8EC6-35F572021D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA41E3EA-B856-48B9-BBAB-B03A3873FA30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA41E3EA-B856-48B9-BBAB-B03A3873FA30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA41E3EA-B856-48B9-BBAB-B03A3873FA30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA41E3EA-B856-48B9-BBAB-B03A3873FA30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFC7DD7-CA7F-43CE-9861-FC97E096319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFC7DD7-CA7F-43CE-9861-FC97E096319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFC7DD7-CA7F-43CE-9861-FC97E096319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFC7DD7-CA7F-43CE-9861-FC97E096319E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +54,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A9DC78B3-892C-4411-97C7-366460B01535} = {969898D1-D366-4B99-BED5-44197AF31608}
 		{0A2EDCA6-6896-4B01-A90B-FC0AB25F3390} = {969898D1-D366-4B99-BED5-44197AF31608}
+		{CE026F8F-5F9E-400F-8EC6-35F572021D85} = {969898D1-D366-4B99-BED5-44197AF31608}
+		{FA41E3EA-B856-48B9-BBAB-B03A3873FA30} = {969898D1-D366-4B99-BED5-44197AF31608}
+		{AFFC7DD7-CA7F-43CE-9861-FC97E096319E} = {969898D1-D366-4B99-BED5-44197AF31608}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EBA2BAF-3E87-4EDF-9F82-5E0C2BFCCF5E}
