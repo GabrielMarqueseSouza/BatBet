@@ -26,8 +26,6 @@ builder.Services.AddMassTransit(x =>
             h.Password("guest");
         });
 
-        //STOP MONGODB, CREATE A BET AND CHECK IF AFTER REESTARTING THE DB, IF IT WILL
-        //RECEIVE THE PLACED BET MESSAGE
         cfg.ReceiveEndpoint("search-bet-created", e =>
         {
             e.UseMessageRetry(r => r.Interval(5, 5));

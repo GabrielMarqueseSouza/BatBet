@@ -45,26 +45,6 @@ namespace BatBetInfrastructure.Data
                 Bets = []
             };
 
-            var user = new User
-            {
-                Id = 1,
-                Name = "First Name",
-                LastName = "Last Name",
-                Email = "test@test.com",
-                Password = "Abc123",
-                Country = "BR",
-                Address = "Rua Sim",
-                State = "MG",
-                Complement = "10",
-                Age = 21,
-                DocumentNumber = "Abcd1234",
-                Balance = 2000000,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                IsBlocked = false,
-                BlockReason = null,
-            };
-
             List<AvailableBet> availableBets =
             [
                 new AvailableBet
@@ -104,8 +84,7 @@ namespace BatBetInfrastructure.Data
                     DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
-                    UserId = 1,
-                    User = user,
+                    UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
@@ -119,8 +98,7 @@ namespace BatBetInfrastructure.Data
                     DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
-                    UserId = 1,
-                    User = user,
+                    UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
@@ -134,8 +112,7 @@ namespace BatBetInfrastructure.Data
                     DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 2,
                     Game = lolGame,
-                    UserId = 1,
-                    User = user,
+                    UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
@@ -149,8 +126,7 @@ namespace BatBetInfrastructure.Data
                     DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 2,
                     Game = lolGame,
-                    UserId = 1,
-                    User = user,
+                    UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
                 new Bet
@@ -164,8 +140,7 @@ namespace BatBetInfrastructure.Data
                     DueDate = DateTime.UtcNow.AddDays(25),
                     GameId = 1,
                     Game = pokerGame,
-                    UserId = 1,
-                    User = user,
+                    UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 }
             ];
