@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Security.Claims;
 
 namespace IdentityService.Pages.Account.Register
 {
@@ -12,7 +11,7 @@ namespace IdentityService.Pages.Account.Register
     [AllowAnonymous]
     public class Index(UserManager<ApplicationUser> userManager) : PageModel
     {
-        private UserManager<ApplicationUser> _userManager = userManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
 
         [BindProperty]
         public RegisterViewModel Input { get; set; }
@@ -20,7 +19,7 @@ namespace IdentityService.Pages.Account.Register
         [BindProperty]
         public bool RegisterSuccess { get; set; }
 
-        public IActionResult OnGet(string returnUrl)
+        public IActionResult OnGet(string? returnUrl)
         {
             Input = new RegisterViewModel { ReturnUrl = returnUrl };
 
@@ -31,6 +30,8 @@ namespace IdentityService.Pages.Account.Register
         {
             if (Input?.Button != "register") return Redirect("~/");
 
+            //TODO - Fill in the remaining user info and add remaining fields to the html
+            //so all the required fields are filled through the UI and bound to the respective fields
             if (ModelState.IsValid)
             {
                 ApplicationUser user = new()
@@ -40,7 +41,7 @@ namespace IdentityService.Pages.Account.Register
                     EmailConfirmed = true
                 };
 
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                IdentityResult? result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
