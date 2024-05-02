@@ -1,6 +1,0 @@
-@BatBetService_HostAddress = https://localhost:5148
-
-GET {{BatBetService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

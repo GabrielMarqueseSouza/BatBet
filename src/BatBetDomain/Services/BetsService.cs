@@ -14,13 +14,12 @@ using System.Threading.Tasks;
 namespace BatBetDomain.Services
 {
     public class BetsService(IMapper mapper, IBetsRepository betRepository,
-                IUserRepository userRepository, IGameRepository gameRepository,
+                IGameRepository gameRepository,
                 IPublishEndpoint publishEndpoint,
                 IAvailableBetsRepository availableBetsRepository) : IBetsService
     {
         private readonly IMapper _mapper = mapper;
         private readonly IBetsRepository _betsRepository = betRepository;
-        private readonly IUserRepository _userRepository = userRepository;
         private readonly IGameRepository _gameRepository = gameRepository;
         private readonly IAvailableBetsRepository _availableBetsRepository = availableBetsRepository;
         private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
@@ -39,35 +38,28 @@ namespace BatBetDomain.Services
             return await _betsRepository.GetBetById(id);
         }
 
-        public async Task<BetDto> CreateBet(PlaceBetDto placeBetDto, int userId)
+        public async Task<BetDto> CreateBet(PlaceBetDto placeBetDto,
+                                            string userId,
+                                            string userBalance)
         {
-            AvailableBet avBet = await _availableBetsRepository
-                                        .GetById(placeBetDto.AvailableBetId);
+            object[] preConditions =
+                await ValidateBetPreConditions(placeBetDto.AvailableBetId, placeBetDto.GameId);
 
-            if (avBet.LimitDate < DateTime.UtcNow)
-            {
-                throw new BadHttpRequestException("Bets not available for this game anymore.");
-            }
-
-            User user = await _userRepository
-                            .GetById(userId) ?? throw new Exception("User not found.");
-
-            Game game = await _gameRepository
-                        .GetGameById(placeBetDto.GameId) ?? throw new Exception("Game not found.");
-
-            await CheckValidUserBalance(user, placeBetDto.Amount);
+            CheckValidUserBalance(userBalance, placeBetDto.Amount);
 
             Bet placedBet = _mapper.Map<Bet>(placeBetDto);
 
             placedBet.PlatformFee = 0.10;
             placedBet.UserId = userId;
             placedBet.UpdatedAt = DateTime.UtcNow;
-            placedBet.Game = game;
-            placedBet.AvailableBetId = avBet.Id;
+            placedBet.Game = (Game)preConditions[0];
+            placedBet.AvailableBetId = (int)preConditions[1];
 
             await _betsRepository.Add(placedBet);
 
             await PublishMessage(placedBet, "Created");
+
+            await PublishBetValueToUpdateUserBalance(userId, placeBetDto.Amount);
 
             await _betsRepository.CommitChanges();
 
@@ -101,16 +93,12 @@ namespace BatBetDomain.Services
             return result;
         }
 
-        private async Task CheckValidUserBalance(User user, double betAmount)
+        private static void CheckValidUserBalance(string userBalance, double betAmount)
         {
-            if (user.Balance < betAmount || user.Balance == 0)
+            if (int.Parse(userBalance) < betAmount || int.Parse(userBalance) == 0)
             {
                 throw new Exception("Insufficient balance!");
             }
-
-            user.Balance -= betAmount;
-
-            await _userRepository.CommitChanges();
         }
 
         private async Task PublishMessage<T>(T messageToPublish, string messageType)
@@ -133,6 +121,33 @@ namespace BatBetDomain.Services
                     await _publishEndpoint.Publish(_mapper.Map<BetDeleted>(messageToPublish));
                     break;
             }
+        }
+
+        private async Task PublishBetValueToUpdateUserBalance(string userId, double betAmount)
+        {
+            UserBalanceUpdated userInfo = new()
+            {
+                UserId = userId,
+                BetAmount = betAmount,
+            };
+
+            await _publishEndpoint.Publish(userInfo);
+        }
+
+        private async Task<object[]> ValidateBetPreConditions(int availableBetId, int gameId)
+        {
+            AvailableBet avBet = await _availableBetsRepository
+                                       .GetById(availableBetId);
+
+            if (avBet.LimitDate < DateTime.UtcNow)
+            {
+                throw new BadHttpRequestException("Bets not available for this game anymore.");
+            }
+
+            Game game = await _gameRepository
+                        .GetGameById(gameId) ?? throw new Exception("Game not found.");
+
+            return [game, avBet.Id];
         }
     }
 }

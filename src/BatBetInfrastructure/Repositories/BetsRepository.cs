@@ -19,7 +19,6 @@ namespace BatBetInfrastructure.Repositories
         public async Task<IList<Bet>> GetBets(string date)
         {
             IQueryable<Bet> query = _context.Bets
-                                .Include(x => x.User)
                                 .Include(x => x.Game);
 
             if (!string.IsNullOrEmpty(date))
@@ -36,7 +35,6 @@ namespace BatBetInfrastructure.Repositories
         public async Task<BetDto> GetBetById(int id)
         {
             Bet bet = await _context.Bets
-                             .Include(x => x.User)
                              .Include(x => x.Game)
                              .FirstOrDefaultAsync(x => x.Id == id);
 

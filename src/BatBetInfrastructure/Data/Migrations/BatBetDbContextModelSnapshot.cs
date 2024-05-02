@@ -33,7 +33,7 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 4, 10, 2, 23, 31, 819, DateTimeKind.Utc).AddTicks(8950));
+                        .HasDefaultValue(new DateTime(2024, 4, 29, 0, 46, 18, 982, DateTimeKind.Utc).AddTicks(2333));
 
                     b.Property<int>("GameId")
                         .HasColumnType("integer");
@@ -80,7 +80,7 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 4, 10, 2, 23, 31, 820, DateTimeKind.Utc).AddTicks(2112));
+                        .HasDefaultValue(new DateTime(2024, 4, 29, 0, 46, 18, 982, DateTimeKind.Utc).AddTicks(5457));
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
@@ -99,16 +99,14 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AvailableBetId");
 
                     b.HasIndex("GameId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Bet", (string)null);
                 });
@@ -124,7 +122,7 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 4, 10, 2, 23, 31, 820, DateTimeKind.Utc).AddTicks(4374));
+                        .HasDefaultValue(new DateTime(2024, 4, 29, 0, 46, 18, 982, DateTimeKind.Utc).AddTicks(7627));
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
@@ -156,7 +154,7 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 4, 10, 2, 23, 31, 820, DateTimeKind.Utc).AddTicks(6774));
+                        .HasDefaultValue(new DateTime(2024, 4, 29, 0, 46, 18, 982, DateTimeKind.Utc).AddTicks(9860));
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
@@ -174,92 +172,6 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Game", (string)null);
-                });
-
-            modelBuilder.Entity("BatBetDomain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("text");
-
-                    b.Property<int>("Age")
-                        .HasMaxLength(3)
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Balance")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("double precision")
-                        .HasDefaultValue(0.0);
-
-                    b.Property<string>("BlockReason")
-                        .HasMaxLength(80)
-                        .HasColumnType("text");
-
-                    b.Property<string>("Complement")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 4, 10, 2, 23, 31, 821, DateTimeKind.Utc).AddTicks(1791));
-
-                    b.Property<string>("DocumentNumber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("text");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("text");
-
-                    b.Property<string>("StateAcronym")
-                        .HasMaxLength(2)
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.InboxState", b =>
@@ -457,17 +369,9 @@ namespace BatBetInfrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatBetDomain.Entities.User", "User")
-                        .WithMany("Bets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AvailableBet");
 
                     b.Navigation("Game");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BatBetDomain.Entities.Game", b =>
@@ -495,11 +399,6 @@ namespace BatBetInfrastructure.Data.Migrations
                 {
                     b.Navigation("AvailableBets");
 
-                    b.Navigation("Bets");
-                });
-
-            modelBuilder.Entity("BatBetDomain.Entities.User", b =>
-                {
                     b.Navigation("Bets");
                 });
 #pragma warning restore 612, 618

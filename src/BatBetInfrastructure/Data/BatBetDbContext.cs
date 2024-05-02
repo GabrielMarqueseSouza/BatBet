@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BatBetInfrastructure.Data
 {
-    public sealed class BatBetDbContext(DbContextOptions options) : DbContext(options)
+    public sealed class BatBetDbContext(DbContextOptions<BatBetDbContext> options) : DbContext(options)
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,6 @@ namespace BatBetInfrastructure.Data
         public DbSet<AvailableBet> AvailableBets { get; set; }
         public DbSet<Bet> Bets { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
     }
 }
