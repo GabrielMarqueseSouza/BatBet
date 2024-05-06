@@ -3,6 +3,7 @@ using BatBetInfrastructure.Data;
 using BatBetInfrastructure.Repositories.DependencyInjection;
 using BatBetService.Configurations;
 using BatBetServiceAPI.Configurations;
+using BatBetServiceAPI.Consumers;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,12 +31,28 @@ builder.Services.AddMassTransit(x =>
         o.UseBusOutbox();
     });
 
+    x.AddConsumersFromNamespaceContaining<AvailableBetFinishedConsumer>();
+
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("bet", false));
+
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("localhost", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("available-bet-finished", e =>
+        {
+            e.UseMessageRetry(r => r.Interval(5, 5));
+            e.ConfigureConsumer<AvailableBetFinishedConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint("bet-placed", e =>
+        {
+            e.UseMessageRetry(r => r.Interval(5, 5));
+            e.ConfigureConsumer<BetPlacedConsumer>(context);
         });
 
         cfg.ConfigureEndpoints(context);

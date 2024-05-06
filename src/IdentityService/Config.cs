@@ -17,7 +17,7 @@ public static class Config
 
     public static IEnumerable<Client> Clients =>
         [
-            new Client
+            new()
             {
                 ClientId = "postman",
                 ClientName = "Postman",
@@ -25,6 +25,17 @@ public static class Config
                 RedirectUris = {"http://localhost:5000"},
                 ClientSecrets = [new Secret("SuperSecret".Sha256())],
                 AllowedGrantTypes = {GrantType.ResourceOwnerPassword}
+            },
+             new()
+            {
+                ClientId = "nextWebApp",
+                ClientName = "nextWebApp",
+                ClientSecrets = [new Secret("SuperSecret".Sha256())],
+                AllowedGrantTypes = {GrantType.ClientCredentials},
+                RequirePkce = false,
+                RedirectUris = {"http://localhost:3000/auth/callback/id-server"},
+                AllowOfflineAccess = true,
+                AllowedScopes = {"openid", "profile", "batbetApp"}
             },
         ];
 }

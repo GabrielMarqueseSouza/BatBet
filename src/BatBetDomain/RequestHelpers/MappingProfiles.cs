@@ -15,8 +15,11 @@ namespace BatBetDomain.RequestHelpers
             CreateMap<PlaceBetDto, Bet>();
             CreateMap<PlaceBetDto, Game>();
 
-            CreateMap<BetDto, BetCreated>()
-                .ForMember(d => d.GameName, o => o.MapFrom(s => s.GameName));
+            CreateMap<Bet, BetCreated>()
+                .ForMember(d => d.GameName, o => o.MapFrom(s => s.Game.Name))
+                .ForMember(d => d.UserId, o => o.MapFrom(s => s.UserId))
+                .ForMember(d => d.AvailableBetId, o => o.MapFrom(s => s.AvailableBetId));
+
 
             CreateMap<int, BetUpdated>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s));

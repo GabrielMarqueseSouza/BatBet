@@ -49,10 +49,12 @@ namespace BatBetDomain.Services
 
             Bet placedBet = _mapper.Map<Bet>(placeBetDto);
 
+            placedBet.Status = 1;
             placedBet.PlatformFee = 0.10;
-            placedBet.UserId = userId;
             placedBet.UpdatedAt = DateTime.UtcNow;
+            placedBet.GameId = placeBetDto.GameId;
             placedBet.Game = (Game)preConditions[0];
+            placedBet.UserId = userId;
             placedBet.AvailableBetId = (int)preConditions[1];
 
             await _betsRepository.Add(placedBet);
@@ -106,9 +108,7 @@ namespace BatBetDomain.Services
             switch (messageType)
             {
                 case "Created":
-                    BetDto newBet = _mapper.Map<BetDto>(messageToPublish);
-
-                    await _publishEndpoint.Publish(_mapper.Map<BetCreated>(newBet));
+                    await _publishEndpoint.Publish(_mapper.Map<BetCreated>(messageToPublish));
 
                     break;
 

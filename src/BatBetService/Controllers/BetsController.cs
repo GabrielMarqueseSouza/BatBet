@@ -31,7 +31,7 @@ namespace BatBetDomain.Controllers
         public async Task<IActionResult> CreateBet(PlaceBetDto betDto)
         {
             BetDto placedBet = await _betsService
-                    .CreateBet(betDto, User.GetUserId(), User.GetUserClaims());
+                    .CreateBet(betDto, User.GetUserId(), User.GetUserBalance());
 
             return CreatedAtAction(nameof(GetBetById),
                 new { placedBet.Id }, placedBet);

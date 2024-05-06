@@ -22,7 +22,6 @@ namespace BetSearchServiceAPI.Data
                  .Key(x => x.ID, KeyType.Text)
                  .Key(x => x.CreatedAt, KeyType.Text)
                  .Key(x => x.GameName, KeyType.Text)
-                 .Key(x => x.UserName, KeyType.Text)
                  .CreateAsync();
 
             using IServiceScope scope = app.Services.CreateScope();

@@ -28,11 +28,11 @@ namespace BetSearchServiceAPI.Services
             .GetFromJsonAsync<List<Bets>>(requestUri);
 
             //how to generate ObjectId instead of using int
-            // foreach (var item in response)
-            // {
-            //     item.ID = ObjectId.GenerateNewId().ToString();
-            //     await Console.Out.WriteLineAsync($"Bets IDs: {item.ID}");
-            // }
+            //foreach (var item in response)
+            //{
+            //    item.ID = ObjectId.GenerateNewId().ToString();
+            //    Console.WriteLine($"Bets IDs: {item.ID}");
+            //}
 
             return response;
         }
