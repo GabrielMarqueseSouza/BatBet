@@ -3,6 +3,7 @@ using System;
 using BatBetInfrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BatBetInfrastructure.Data.Migrations
 {
     [DbContext(typeof(BatBetDbContext))]
-    partial class BatBetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505003536_More adjustments to the tables")]
+    partial class Moreadjustmentstothetables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,41 +34,31 @@ namespace BatBetInfrastructure.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Canceled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 5, 5, 0, 35, 35, 772, DateTimeKind.Utc).AddTicks(162));
 
                     b.Property<int>("GameId")
                         .HasColumnType("integer");
 
                     b.Property<double>("HighestBet")
-                        .HasMaxLength(999999999)
                         .HasColumnType("double precision");
 
                     b.Property<bool>("IsFinished")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("LimitDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double>("MaxValue")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(999999999)
-                        .HasColumnType("double precision")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("double precision");
 
                     b.Property<double>("MinValue")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(999999999)
                         .HasColumnType("double precision")
                         .HasDefaultValue(0.01);
 
@@ -75,9 +68,7 @@ namespace BatBetInfrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("WinnerId")
                         .HasColumnType("text");
@@ -107,12 +98,10 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 5, 5, 0, 35, 35, 772, DateTimeKind.Utc).AddTicks(3074));
 
                     b.Property<DateTime>("DueDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("GameId")
                         .HasColumnType("integer");
@@ -123,13 +112,10 @@ namespace BatBetInfrastructure.Data.Migrations
                         .HasDefaultValue(0.0);
 
                     b.Property<int>("Status")
-                        .HasMaxLength(1)
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text");
@@ -154,20 +140,18 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 5, 5, 0, 35, 35, 772, DateTimeKind.Utc).AddTicks(5501));
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
+                        .HasMaxLength(15)
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -188,7 +172,7 @@ namespace BatBetInfrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2024, 5, 5, 17, 21, 1, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2024, 5, 5, 0, 35, 35, 772, DateTimeKind.Utc).AddTicks(7918));
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
@@ -198,7 +182,7 @@ namespace BatBetInfrastructure.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(30)
                         .HasColumnType("text");
 
                     b.HasKey("Id");

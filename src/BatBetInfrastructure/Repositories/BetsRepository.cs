@@ -44,11 +44,11 @@ namespace BatBetInfrastructure.Repositories
         public async Task<int> UpdateBet(int id)
         {
             Bet bet = await _context.Bets
-                .Where(x => x.Status == Status.Active)
+                .Where(x => x.Status == 1)
                 .FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception("Bet not found.");
 
             bet.UpdatedAt = DateTime.UtcNow;
-            bet.Status = Status.Finished;
+            bet.Status = 3;
 
             return bet.Id;
         }

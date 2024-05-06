@@ -15,7 +15,5 @@ namespace BatBetDomain.Entities
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<Bet> Bets { get; set; }
-        public virtual ICollection<AvailableBet> AvailableBets { get; set; }
     }
 }

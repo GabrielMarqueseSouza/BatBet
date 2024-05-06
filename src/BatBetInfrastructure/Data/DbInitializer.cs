@@ -12,7 +12,7 @@ namespace BatBetInfrastructure.Data
     {
         public static async void InitDb(WebApplication app)
         {
-            using var scope = app.Services.CreateScope();
+            using IServiceScope scope = app.Services.CreateScope();
 
             await SeedData(scope.ServiceProvider.GetService<BatBetDbContext>());
         }
@@ -21,7 +21,7 @@ namespace BatBetInfrastructure.Data
         {
             context.Database.Migrate();
 
-            var pokerGame = new Game
+            Game poker = new()
             {
                 Id = 1,
                 Name = "Poker",
@@ -29,164 +29,153 @@ namespace BatBetInfrastructure.Data
                 IsActive = true,
                 ImageUrl = "",
                 CategoryId = 1,
-                AvailableBets = [],
-                Bets = []
             };
 
-            var lolGame = new Game
+            Game blackJack = new()
             {
                 Id = 2,
-                Name = "League of Legends",
+                Name = "Blackjack",
                 CreatedAt = DateTime.UtcNow,
                 IsActive = true,
                 ImageUrl = "",
                 CategoryId = 2,
-                AvailableBets = [],
-                Bets = []
             };
 
-            List<AvailableBet> availableBets =
+            IList<AvailableBet> availableBets =
             [
-                new AvailableBet
+                new()
                 {
                     Id = 1,
-                    Name = "Random bet name",
+                    Name = "Poker bet",
                     MinValue = 1,
-                    MaxValue = 1000000,
+                    MaxValue = 10000000,
+                    HighestBet = 0.00,
                     CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
                     LimitDate = DateTime.UtcNow.AddDays(200),
+                    IsFinished = false,
+                    Canceled = false,
+                    WinnerId = "",
                     GameId = 1,
-                    Game = pokerGame
+                    Game = poker
                 },
-                new AvailableBet
+                new()
                 {
                     Id = 2,
-                    Name = "Random bet name number two",
+                    Name = "Blackjack bet",
                     MinValue = 50,
-                    MaxValue = 90,
+                    MaxValue = 900,
+                    HighestBet = 0.00,
                     CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
                     LimitDate = DateTime.UtcNow.AddDays(200),
+                    IsFinished = false,
+                    Canceled = false,
+                    WinnerId = "",
                     GameId = 2,
-                    Game = lolGame,
+                    Game = blackJack,
                 }
             ];
 
-            List<Bet> bets =
+            IList<Bet> bets =
             [
-                new Bet
+                new()
                 {
                     Id = 1,
                     Amount = 10.00,
-                    Status = Status.Active,
+                    Status = 1,
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(25),
+                    DueDate = DateTime.UtcNow.AddDays(50),
                     GameId = 1,
-                    Game = pokerGame,
+                    Game = poker,
                     UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
-                new Bet
+                new()
                 {
                     Id = 2,
                     Amount = 20.00,
-                    Status = Status.Active,
+                    Status = 1,
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(25),
+                    DueDate = DateTime.UtcNow.AddDays(50),
                     GameId = 1,
-                    Game = pokerGame,
+                    Game = poker,
                     UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
-                new Bet
+                new()
                 {
                     Id = 3,
                     Amount = 30.00,
-                    Status = Status.Finished,
+                    Status = 0,
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(25),
-                    GameId = 2,
-                    Game = lolGame,
+                    DueDate = DateTime.UtcNow.AddDays(50),
+                    GameId = 1,
+                    Game = poker,
                     UserId = "",
                     AvailableBetId = availableBets[0].Id,
                 },
-                new Bet
+                new()
                 {
                     Id = 4,
                     Amount = 40.00,
-                    Status = Status.Canceled,
+                    Status = 1,
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(25),
+                    DueDate = DateTime.UtcNow.AddDays(50),
                     GameId = 2,
-                    Game = lolGame,
+                    Game = blackJack,
                     UserId = "",
-                    AvailableBetId = availableBets[0].Id,
+                    AvailableBetId = availableBets[1].Id,
                 },
-                new Bet
+                new()
                 {
                     Id = 5,
                     Amount = 50.00,
-                    Status = Status.Suspended,
+                    Status = 2,
                     PlatformFee = 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    DueDate = DateTime.UtcNow.AddDays(25),
-                    GameId = 1,
-                    Game = pokerGame,
+                    DueDate = DateTime.UtcNow.AddDays(50),
+                    GameId = 2,
+                    Game = blackJack,
                     UserId = "",
-                    AvailableBetId = availableBets[0].Id,
+                    AvailableBetId = availableBets[1].Id,
                 }
             ];
 
-            List<Category> category =
-            [
-                new Category
-                {
-                    Id = 1,
-                    Name = "Card Game",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    ImageUrl = "",
-                    Games =
+            Category category = new()
+            {
+                Id = 1,
+                Name = "Card Game",
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                ImageUrl = "",
+                Games =
                         [
-                            pokerGame
+                            poker,
+                            blackJack
                         ],
-                },
-                new Category
-                {
-                    Id = 2,
-                    Name = "Rpg Game",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                    ImageUrl = "",
-                    Games =
-                        [
-                            lolGame
-                        ],
-                }
-            ];
+            };
 
-            foreach (var item in bets)
+            foreach (Bet item in bets)
             {
                 await context.AddAsync(item);
             };
 
-            foreach (var item in availableBets)
+            foreach (AvailableBet item in availableBets)
             {
                 await context.AddAsync(item);
             }
 
-            foreach (var item in category)
-            {
-                await context.AddAsync(item);
-            }
+            await context.AddAsync(category);
 
             return context.SaveChangesAsync().Result;
         }

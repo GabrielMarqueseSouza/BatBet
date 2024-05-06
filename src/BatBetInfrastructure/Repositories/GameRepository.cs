@@ -15,9 +15,7 @@ namespace BatBetInfrastructure.Repositories
         public async Task<Game> GetGameById(int id)
         {
             return await _context.Games
-                .Include(x => x.AvailableBets)
                 .Include(x => x.Category)
-                .Include(x => x.Bets)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
     }

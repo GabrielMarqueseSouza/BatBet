@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using BetSearchServiceAPI.Models;
 using MongoDB.Entities;
-using System;
-using System.Linq;
 using BetSearchServiceAPI.RequestHelpers;
 
 namespace BetSearchServiceAPI.Controllers
@@ -19,7 +17,7 @@ namespace BetSearchServiceAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchBets([FromQuery] SearchParams searchParams)
         {
-            var bets = DB.PagedSearch<Bets>().Sort(x => x.Descending(x => x.CreatedAt));
+            PagedSearch<Bets, Bets> bets = DB.PagedSearch<Bets>();
 
             if (!string.IsNullOrEmpty(searchParams.SearchTerm))
             {
@@ -28,9 +26,9 @@ namespace BetSearchServiceAPI.Controllers
 
             bets = searchParams.OrderBy switch
             {
-                "League of Legends" => bets.Sort(x => x.Descending(x => x.GameName == "League of Legends")),
-                "Poker" => bets.Sort(x => x.Descending(x => x.GameName == "Poker")),
-                _ => bets.Sort(x => x.Ascending(x => x.CreatedAt))
+                "Game" => bets.Sort(s => s.GameName, Order.Descending),
+                "Oldest" => bets.Sort(x => x.CreatedAt, Order.Ascending),
+                _ => bets.Sort(x => x.CreatedAt, Order.Descending)
             };
 
             bets = searchParams.FilterBy switch
@@ -42,9 +40,9 @@ namespace BetSearchServiceAPI.Controllers
                 _ => bets
             };
 
-            if (!string.IsNullOrEmpty(searchParams.UserName))
+            if (!string.IsNullOrEmpty(searchParams.UserId))
             {
-                bets.Match(x => x.UserName.Contains(searchParams.UserName));
+                bets.Match(x => x.UserId == searchParams.UserId);
             }
 
             bets.PageNumber(searchParams.PageNumber).PageSize(searchParams.PageSize);

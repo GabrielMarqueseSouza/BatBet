@@ -14,7 +14,7 @@ namespace BatBetServiceAPI.Extensions
             return userId.Value.ToString() ?? "";
         }
 
-        public static string GetUserClaims(this ClaimsPrincipal principal)
+        public static string GetUserBalance(this ClaimsPrincipal principal)
         {
             ArgumentNullException.ThrowIfNull(principal);
 
