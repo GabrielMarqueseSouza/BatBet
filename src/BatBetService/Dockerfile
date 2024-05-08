@@ -7,25 +7,20 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /app
-
-COPY ["src/BatBetService/BatBetServiceAPI.csproj", "src/BatBetService/BatBetServiceAPI.csproj"]
-COPY ["src/BetSearchService/BetSearchServiceAPI.csproj", "src/BetSearchService/BetSearchServiceAPI.csproj"]
-COPY ["src/BatBetDomain/BatBetDomain.csproj", "src/BatBetDomain/BatBetDomain.csproj"]
-COPY ["src/BatBetInfrastructure/BatBetInfrastructure.csproj", "src/BatBetInfrastructure/BatBetInfrastructure.csproj"]
-COPY ["src/Contracts/Contracts.csproj", "src/Contracts/Contracts.csproj"]
-COPY ["src/GatewayService/GatewayService.csproj", "src/GatewayService/GatewayService.csproj"]
-COPY ["src/IdentityService/IdentityService.csproj", "src/IdentityService/IdentityService.csproj"]
-
-RUN dotnet restore "./src/BatBetService/./BatBetServiceAPI.csproj"
+COPY ["src/BatBetService/BatBetServiceAPI.csproj", "src/BatBetService/"]
+COPY ["src/BatBetInfrastructure/BatBetInfrastructure.csproj", "src/BatBetInfrastructure/"]
+COPY ["src/BatBetDomain/BatBetDomain.csproj", "src/BatBetDomain/"]
+COPY ["src/Contracts/Contracts.csproj", "src/Contracts/"]
+RUN dotnet restore "./src/BatBetService/BatBetServiceAPI.csproj"
 COPY . .
 WORKDIR "/app/src/BatBetService"
-RUN dotnet build "./BatBetServiceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/src/out
+RUN dotnet build "./BatBetServiceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./BatBetServiceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/src/out
+RUN dotnet publish "./BatBetServiceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/src/out .
+COPY --from=publish /app/publish/ .
 ENTRYPOINT ["dotnet", "BatBetServiceAPI.dll"]

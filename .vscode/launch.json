@@ -1,10 +1,13 @@
 {
   "configurations": [
     {
-      "name": "C#: BetSearchServiceAPI [Default Configuration]",
-      "type": "dotnet",
-      "request": "launch",
-      "projectPath": "${workspaceFolder}\\src\\BetSearchService\\BetSearchServiceAPI.csproj"
+      "name": "Docker .NET Attach (Preview)",
+      "type": "docker",
+      "request": "attach",
+      "platform": "netCore",
+      "sourceFileMap": {
+        "/app": "${workspaceFolder}"
+      }
     }
   ]
 }
