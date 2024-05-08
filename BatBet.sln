@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatBetInfrastructure", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\IdentityService\IdentityService.csproj", "{4F1CEBF8-3365-44AF-887F-C98BD07DA10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayService", "src\GatewayService\GatewayService.csproj", "{02192963-6BC1-404C-A3D9-BD95B4B5D901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayService", "src\GatewayService\GatewayService.csproj", "{02192963-6BC1-404C-A3D9-BD95B4B5D901}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

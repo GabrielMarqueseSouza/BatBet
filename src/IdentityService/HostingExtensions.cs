@@ -30,6 +30,11 @@ internal static class HostingExtensions
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
 
+                if (builder.Environment.IsEnvironment("Docker"))
+                {
+                    options.IssuerUri = "identity-svc";
+                }
+
                 // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                 // options.EmitStaticAudienceClaim = true;
             })
@@ -52,11 +57,11 @@ internal static class HostingExtensions
 
             x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("localhost", "/", h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
+                cfg.Host(builder.Configuration["RabbitMq:Host"], "/", h =>
+        {
+            h.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
+            h.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+        });
 
                 cfg.ReceiveEndpoint("user-balance-updated", e =>
                 {
