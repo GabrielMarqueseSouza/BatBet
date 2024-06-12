@@ -29,11 +29,11 @@ The course that inspired this project is by <a href="https://www.linkedin.com/in
 
 <h3>Frontend</h3>
 
-<a href="https://nextjs.org/" target="_blank" title="Go to nextjs.org">🔼 NextJs</a> - a React framework for building full-stack web applications.
+🔼 <a href="https://nextjs.org/" target="_blank" title="Go to nextjs.org">NextJs</a> - a React framework for building full-stack web applications.
 
 <h3>Backend</h3>
 
-<a href="https://dotnet.microsoft.com/en-us/" target="_blank" title="Go to dotnet.microsoft.com">🖥️ .Net 8</a> - free, open-source, cross-platform framework for building modern apps and powerful cloud services.
+🖥️ <a href="https://dotnet.microsoft.com/en-us/" target="_blank" title="Go to dotnet.microsoft.com">.Net 8</a> - free, open-source, cross-platform framework for building modern apps and powerful cloud services.
 
 🍃 <a href="https://www.mongodb.com/" target="_blank" title="Go to mongodb.com">MongoDB</a> - source-available, cross-platform, document-oriented NoSql database.
 
@@ -41,7 +41,7 @@ The course that inspired this project is by <a href="https://www.linkedin.com/in
 
 <h3>Authentication</h3>
 
-<a href="https://duendesoftware.com/products/identityserver" title="Go to duendesoftware.com">🔐 IdentityServer</a> - flexible and standards-compliant OpenID Connect and OAuth 2.0 framework for ASP.NET Core.
+🔐 <a href="https://duendesoftware.com/products/identityserver" title="Go to duendesoftware.com">IdentityServer</a> - flexible and standards-compliant OpenID Connect and OAuth 2.0 framework for ASP.NET Core.
 
 </div>
 
