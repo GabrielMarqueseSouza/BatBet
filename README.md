@@ -18,7 +18,7 @@
 
 This is a study project focusing on building a microservice-architecture, web-based, dockerized app using .Net 8 for the backend and NextJs for the frontend, along with some other necessary technologies to provide authentication, services communication using message queue, data storing, and traceability/logging.
 
-The course that inspired this project is by <a href="https://www.linkedin.com/in/necummings/" target="_blank">Neil Cummings</a> and is on the Udemy platform, click <a href="https://www.udemy.com/share/109an03@mAYIP-RGajbT2JisskZrYmW8v_CTRgrZTJlmF3JCzek1nHonFltCcjGYCSrup9GSWg==/" target="_blank">here</a> for more details.
+The course that inspired this project is by <a href="https://www.linkedin.com/in/necummings/" target="_blank" title="Go to Neil's profile">Neil Cummings</a> and is on the Udemy platform, click <a href="https://www.udemy.com/share/109an03@mAYIP-RGajbT2JisskZrYmW8v_CTRgrZTJlmF3JCzek1nHonFltCcjGYCSrup9GSWg==/" target="_blank" title="Go to course details">here</a> for more details.
 
 </div>
 
@@ -29,11 +29,11 @@ The course that inspired this project is by <a href="https://www.linkedin.com/in
 
 <h3>Frontend</h3>
 
-<a href="https://nextjs.org/">🔼 NextJs - a React framework for building full-stack web applications.
+<a href="https://nextjs.org/" target="_blank" title="Go to nextjs.org">🔼 NextJs</a> - a React framework for building full-stack web applications.
 
 <h3>Backend</h3>
 
-<a href="https://dotnet.microsoft.com/en-us/">🖥️ .Net 8 - free, open-source, cross-platform framework for building modern apps and powerful cloud services.
+<a href="https://dotnet.microsoft.com/en-us/" target="_blank" title="Go to dotnet.microsoft.com">🖥️ .Net 8</a> - free, open-source, cross-platform framework for building modern apps and powerful cloud services.
 
 🍃 <a href="https://www.mongodb.com/" target="_blank" title="Go to mongodb.com">MongoDB</a> - source-available, cross-platform, document-oriented NoSql database.
 
@@ -41,7 +41,7 @@ The course that inspired this project is by <a href="https://www.linkedin.com/in
 
 <h3>Authentication</h3>
 
-<a href="https://duendesoftware.com/products/identityserver">🔐 IdentityServer - flexible and standards-compliant OpenID Connect and OAuth 2.0 framework for ASP.NET Core.
+<a href="https://duendesoftware.com/products/identityserver" title="Go to duendesoftware.com">🔐 IdentityServer</a> - flexible and standards-compliant OpenID Connect and OAuth 2.0 framework for ASP.NET Core.
 
 </div>
 
