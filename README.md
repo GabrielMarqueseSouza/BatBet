@@ -16,7 +16,7 @@
 <div id="intro">
 <h2 style="border-bottom: none;">📜 About</h2>
 
-This is a study project focusing on building a microservice-architecture, web-based, dockerized app using .Net 8 for the backend and NextJs for the frontend, along with some other necessary technologies to provide authentication, services communication using message queue, data storing, and traceability/logging.
+This is a study project contextualized as an online betting platform, focusing on building a microservice-architecture, web-based, dockerized app using .Net 8 for the backend and NextJs for the frontend, along with some other necessary technologies to provide authentication, services communication using message queue, data storing, and traceability/logging.
 
 The course that inspired this project is by <a href="https://www.linkedin.com/in/necummings/" target="_blank" title="Go to Neil's profile">Neil Cummings</a> and is on the Udemy platform, click <a href="https://www.udemy.com/share/109an03@mAYIP-RGajbT2JisskZrYmW8v_CTRgrZTJlmF3JCzek1nHonFltCcjGYCSrup9GSWg==/" target="_blank" title="Go to course details">here</a> for more details.
 
